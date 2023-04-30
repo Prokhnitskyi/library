@@ -19,14 +19,12 @@ html {
 body {
     min-height: 100vh;
     min-width: 320px;
-    margin: 0;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem;
     background-color: var(--background-color);
     font-family: 'Roboto Flex', system-ui, sans-serif;
     color: #636363;
-
-    display: grid;
-    grid-template-columns: max-content minmax(600px, 4fr);
-    grid-template-rows: min-content 4.5fr;
 }
 
 h1, h2, h3, h4 {
@@ -37,4 +35,34 @@ h1, h2, h3, h4 {
 
 p {
     margin: 0 0 1rem 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.content__title {
+    margin-bottom: 1rem;
+}
+
+.books-container {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-auto-rows: max(min-content, 200px);
+    align-items: start;
+    justify-content: start;
+}
+
+.book .mdc-card__actions {
+    justify-content: end;
+}
+
+.book__title,
+.book__author,
+.book__pages,
+.book__read {
+    padding: 8px;
 }
