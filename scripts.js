@@ -6,12 +6,19 @@ const closeModalButton = document.querySelector('#close-modal');
 function Book({title = '', author = '', pages = 0, read = false}) {
     this.title = title;
     this.author = author;
-    this.pages = read;
+    this.pages = pages;
     this.read = read;
 }
 
 function addBookToLibrary(event) {
-    console.log('test');
+    const form = event.target;
+    const addedBook = new Book({
+        title: form.title.value,
+        author: form.author.value,
+        pages: parseInt(form.pages.value) || 0,
+        read: form.read.checked
+    });
+    myLibrary.push(addedBook);
 }
 
 addBookButton.addEventListener('click', () => modal.showModal());
