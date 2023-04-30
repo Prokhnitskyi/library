@@ -15,7 +15,7 @@
 <header class="header">
   <h1>Library</h1>
   <div>
-    <button class="mdc-button mdc-button--raised" type="button">
+    <button class="mdc-button mdc-button--raised" type="button" id="show-add-modal">
       <span class="mdc-button__label">NEW BOOK</span>
     </button>
   </div>
@@ -105,7 +105,31 @@
     </div>
   </div>
 </main>
-<aside class="sidebar"></aside>
-<footer class="footer"></footer>
+<dialog class="add-book-modal">
+  <div class="modal-container">
+    <h2 class="add-book-modal__title">Add new book</h2>
+    <form method="dialog" class="modal-form">
+      <label for="title">Title:</label>
+      <input type="text" name="title" id="title" required>
+      <label for="author">Author:</label>
+      <input type="text" name="author" id="author">
+      <label for="pages">Pages:</label>
+      <input type="number" name="pages" id="pages" min="0">
+      <div class="span-all-col">
+        <label for="read">Read</label>
+        <input type="checkbox" name="read" id="read">
+      </div>
+      <div class="span-all-col modal-form__actions">
+        <button class="mdc-button" id="close-modal">
+          <span class="mdc-button__ripple"></span>
+          <span class="mdc-button__label">CLOSE</span>
+        </button>
+        <button class="mdc-button mdc-button--raised modal-form__submit" type="submit" id="add-book">
+          <span class="mdc-button__label">ADD</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</dialog>
 </body>
 </html>

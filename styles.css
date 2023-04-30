@@ -67,3 +67,43 @@ p {
 .book__read {
     padding: 8px;
 }
+
+.add-book-modal__title {
+    margin-bottom: 1rem;
+}
+
+.add-book-modal {
+    border: none;
+    width: clamp(320px, 50vw, 640px);
+}
+
+.add-book-modal::backdrop {
+    backdrop-filter: blur(4px) brightness(0.8);
+}
+
+.modal-container {
+    padding: 1rem;
+}
+
+.modal-form {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: minmax(min-content, 1fr) minmax(min-content, 2fr);
+}
+
+.span-all-col {
+    grid-column: 1 / -1;
+}
+
+.checkbox-cell {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-form__actions {
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+}
