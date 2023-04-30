@@ -51,10 +51,11 @@ p {
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    grid-auto-rows: max(min-content, 200px);
+    grid-auto-rows: minmax(min-content, 200px);
     align-items: start;
     justify-content: start;
 }
+
 
 .book .mdc-card__actions {
     justify-content: end;
