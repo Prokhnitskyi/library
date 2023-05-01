@@ -27,8 +27,10 @@ function addBookToLibrary(event) {
 
 function populate(elements = myLibrary) {
     booksContainer.innerHTML = '';
-    elements.forEach((element, index, array)=>{
+    elements.forEach((element, index) => {
         const card = cardBlueprint.content.cloneNode(true);
+        card.querySelector('.book__read-switch').dataset.index = index.toString();
+        card.querySelector('.book__remove').dataset.index = index.toString();
         card.querySelector('.book__title').textContent = element.title;
         card.querySelector('.book__author').textContent = element.author;
         card.querySelector('.book__pages').textContent = element.pages;
