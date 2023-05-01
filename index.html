@@ -22,88 +22,7 @@
 </header>
 <main class="content">
   <h2 class="content__title">My books</h2>
-  <div class="books-container">
-    <div class="mdc-card book">
-      <h3 class="book__title">Book title</h3>
-      <address class="book__author">Author name</address>
-      <div class="book__pages">308 pages</div>
-      <div class="book__read">Read status</div>
-      <div class="mdc-card__actions">
-        <button class="mdc-button mdc-card__action mdc-card__action--button">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">READ</span>
-        </button>
-        <button class="mdc-button mdc-card__action mdc-card__action--button">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">REMOVE</span>
-        </button>
-      </div>
-    </div>
-    <div class="mdc-card book">
-      <h3 class="book__title">Book title</h3>
-      <address class="book__author">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium, ad amet aspernatur, eius, eum eveniet itaque molestiae molestias natus officiis quae quam qui quos suscipit? Architecto dolor facere itaque sint voluptatum! Adipisci animi, architecto autem consequuntur cum earum eum facilis harum omnis quae qui quo sunt tempora vel voluptatem?</address>
-      <div class="book__pages">308 pages</div>
-      <div class="book__read">Read status</div>
-      <div class="mdc-card__actions">
-        <button class="mdc-button mdc-card__action mdc-card__action--button">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">READ</span>
-        </button>
-        <button class="mdc-button mdc-card__action mdc-card__action--button">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">REMOVE</span>
-        </button>
-      </div>
-    </div>
-    <div class="mdc-card book">
-      <h3 class="book__title">Book title</h3>
-      <address class="book__author">Author name</address>
-      <div class="book__pages">308 pages</div>
-      <div class="book__read">Read status</div>
-      <div class="mdc-card__actions">
-        <button class="mdc-button mdc-card__action mdc-card__action--button">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">READ</span>
-        </button>
-        <button class="mdc-button mdc-card__action mdc-card__action--button">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">REMOVE</span>
-        </button>
-      </div>
-    </div>
-    <div class="mdc-card book">
-      <h3 class="book__title">Book title</h3>
-      <address class="book__author">Author name</address>
-      <div class="book__pages">308 pages</div>
-      <div class="book__read">Read status</div>
-      <div class="mdc-card__actions">
-        <button class="mdc-button mdc-card__action mdc-card__action--button">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">READ</span>
-        </button>
-        <button class="mdc-button mdc-card__action mdc-card__action--button">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">REMOVE</span>
-        </button>
-      </div>
-    </div>
-    <div class="mdc-card book">
-      <h3 class="book__title">Book title</h3>
-      <address class="book__author">Author name</address>
-      <div class="book__pages">308 pages</div>
-      <div class="book__read">Read status</div>
-      <div class="mdc-card__actions">
-        <button class="mdc-button mdc-card__action mdc-card__action--button">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">READ</span>
-        </button>
-        <button class="mdc-button mdc-card__action mdc-card__action--button">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">REMOVE</span>
-        </button>
-      </div>
-    </div>
-  </div>
+  <div class="books-container"></div>
 </main>
 <dialog class="add-book-modal">
   <div class="modal-container">
@@ -120,7 +39,7 @@
         <input type="checkbox" name="read" id="read">
       </div>
       <div class="span-all-col modal-form__actions">
-        <button class="mdc-button" id="close-modal">
+        <button class="mdc-button" id="close-modal" type="reset">
           <span class="mdc-button__ripple"></span>
           <span class="mdc-button__label">CLOSE</span>
         </button>
@@ -131,5 +50,23 @@
     </form>
   </div>
 </dialog>
+<template id="card-template">
+  <div class="mdc-card book">
+    <h3 class="book__title"></h3>
+    <address class="book__author"></address>
+    <div class="book__pages"></div>
+    <div class="book__read"></div>
+    <div class="mdc-card__actions">
+      <button class="mdc-button mdc-card__action mdc-card__action--button">
+        <div class="mdc-button__ripple"></div>
+        <span class="mdc-button__label">READ</span>
+      </button>
+      <button class="mdc-button mdc-card__action mdc-card__action--button">
+        <div class="mdc-button__ripple"></div>
+        <span class="mdc-button__label">REMOVE</span>
+      </button>
+    </div>
+  </div>
+</template>
 </body>
 </html>

@@ -51,13 +51,15 @@ p {
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    grid-auto-rows: minmax(min-content, 200px);
-    align-items: start;
+    grid-auto-rows: minmax(min-content, 1fr);
+    align-items: stretch;
     justify-content: start;
 }
 
 
 .book .mdc-card__actions {
+    flex-grow: 1;
+    align-items: end;
     justify-content: end;
 }
 
