@@ -58,7 +58,7 @@ function populate(initial = false) {
 }
 
 function initBookCards() {
-    myLibrary.forEach((book, index, array) => {
+    myLibrary.forEach((book) => {
         Object.setPrototypeOf(book, Book.prototype);
     });
     populate(true);
