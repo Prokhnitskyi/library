@@ -1,4 +1,4 @@
-let myLibrary = [];
+let myLibrary = JSON.parse(localStorage.getItem('library')) || [];
 const addBookButton = document.querySelector('#show-add-modal');
 const modal = document.querySelector('.add-book-modal');
 const closeModalButton = document.querySelector('#close-modal');
@@ -23,6 +23,7 @@ function addBookToLibrary(event) {
     });
     myLibrary.push(addedBook);
     populate();
+    localStorage.setItem('library', JSON.stringify(myLibrary));
     form.reset();
 }
 
@@ -49,3 +50,4 @@ function uuidv4() {
 addBookButton.addEventListener('click', () => modal.showModal());
 closeModalButton.addEventListener('click', () => modal.close());
 modal.addEventListener('submit', addBookToLibrary);
+document.addEventListener('DOMContentLoaded', () => populate());
