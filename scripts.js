@@ -17,7 +17,7 @@ class Book {
 
     switchReadStatus() {
         this.read = !this.read;
-        if (!Book.parentLibrary) {
+        if (Book.parentLibrary) {
             Book.parentLibrary.populate();
         }
     }
