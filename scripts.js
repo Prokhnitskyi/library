@@ -5,6 +5,8 @@ const booksContainer = document.querySelector('.books-container');
 const cardBlueprint = document.querySelector('#card-template');
 
 class Book {
+    static parentLibrary = null;
+
     constructor ({title = '', author = '', pages = 0, read = false}) {
         this.uuid = uuidv4();
         this.title = title;
@@ -15,13 +17,16 @@ class Book {
 
     switchReadStatus() {
         this.read = !this.read;
-        library.populate();
+        if (!Book.parentLibrary) {
+            Book.parentLibrary.populate();
+        }
     }
 
     removeSelf() {
-        const index = library.shelf.indexOf(this);
-        library.shelf.splice(index, 1);
-        library.populate();
+        if (!Book.parentLibrary) return;
+        const index = Book.parentLibrary.shelf.indexOf(this);
+        Book.parentLibrary.shelf.splice(index, 1);
+        Book.parentLibrary.populate();
     }
 }
 
@@ -62,11 +67,11 @@ class Library {
     }
 
     remove(event) {
-        const book = this.#get(event, '.book__remove');
+        const book = this.get(event, '.book__remove');
         if (book) book.removeSelf();
     }
 
-    #get(event, selector = '') {
+    get(event, selector = '') {
         const button = event.target.closest(selector);
         if (!button) return null;
 
@@ -74,7 +79,7 @@ class Library {
     }
 
     read(event) {
-        const book = this.#get(event, '.book__read-switch');
+        const book = this.get(event, '.book__read-switch');
         if (book) book.switchReadStatus();
     }
 
@@ -93,6 +98,7 @@ function uuidv4() {
 }
 
 const library = new Library();
+Book.parentLibrary = library;
 
 addBookButton.addEventListener('click', () => modal.showModal());
 closeModalButton.addEventListener('click', () => modal.close());
