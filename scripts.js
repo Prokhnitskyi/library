@@ -1,84 +1,89 @@
-let myLibrary = JSON.parse(localStorage.getItem('library')) || [];
 const addBookButton = document.querySelector('#show-add-modal');
 const modal = document.querySelector('.add-book-modal');
 const closeModalButton = document.querySelector('#close-modal');
 const booksContainer = document.querySelector('.books-container');
 const cardBlueprint = document.querySelector('#card-template');
 
-function Book({title = '', author = '', pages = 0, read = false}) {
-    this.uuid = uuidv4();
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-}
-
-Book.prototype.switchReadStatus = function () {
-    console.log('it works');
-    this.read = !this.read;
-    populate();
-}
-
-Book.prototype.removeSelf = function () {
-    const index = myLibrary.indexOf(this);
-    myLibrary.splice(index, 1);
-    populate();
-}
-
-function addBookToLibrary(event) {
-    const form = event.target;
-    const addedBook = new Book({
-        title: form.title.value,
-        author: form.author.value,
-        pages: parseInt(form.pages.value) || 0,
-        read: form.read.checked
-    });
-    myLibrary.push(addedBook);
-    populate();
-    form.reset();
-}
-
-function populate(initial = false) {
-    booksContainer.innerHTML = '';
-    myLibrary.forEach((element) => {
-        const card = cardBlueprint.content.cloneNode(true);
-        card.querySelector('.book__read-switch').dataset.uuid = element.uuid;
-        card.querySelector('.book__remove').dataset.uuid = element.uuid;
-        card.querySelector('.book__title').textContent += element.title;
-        card.querySelector('.book__author').textContent += element.author;
-        card.querySelector('.book__pages').textContent += element.pages;
-        card.querySelector('.book__read').textContent += element.read;
-        booksContainer.append(card);
-    });
-
-    if (!initial) {
-        localStorage.setItem('library', JSON.stringify(myLibrary));
+class Book {
+    constructor ({title = '', author = '', pages = 0, read = false}) {
+        this.uuid = uuidv4();
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
     }
 
+    switchReadStatus() {
+        this.read = !this.read;
+        library.populate();
+    }
+
+    removeSelf() {
+        const index = library.shelf.indexOf(this);
+        library.shelf.splice(index, 1);
+        library.populate();
+    }
 }
 
-function initBookCards() {
-    myLibrary.forEach((book) => {
-        Object.setPrototypeOf(book, Book.prototype);
-    });
-    populate(true);
-}
+class Library {
+    constructor () {
+        this.shelf = JSON.parse(localStorage.getItem('library')) || [];
+    }
 
-function removeBook(event) {
-    const book = getBook(event, '.book__remove');
-    if (book) book.removeSelf();
-}
+    populate(initial = false) {
+        booksContainer.innerHTML = '';
+        this.shelf.forEach((element) => {
+            const card = cardBlueprint.content.cloneNode(true);
+            card.querySelector('.book__read-switch').dataset.uuid = element.uuid;
+            card.querySelector('.book__remove').dataset.uuid = element.uuid;
+            card.querySelector('.book__title').textContent += element.title;
+            card.querySelector('.book__author').textContent += element.author;
+            card.querySelector('.book__pages').textContent += element.pages;
+            card.querySelector('.book__read').textContent += element.read;
+            booksContainer.append(card);
+        });
 
-function readBook(event) {
-    const book = getBook(event, '.book__read-switch');
-    if (book) book.switchReadStatus();
-}
+        if (!initial) {
+            localStorage.setItem('library', JSON.stringify(this.shelf));
+        }
+    }
 
-function getBook(event, selector = '') {
-    const button = event.target.closest(selector);
-    if (!button) return null;
+    add(event) {
+        const form = event.target;
+        const addedBook = new Book({
+            title: form.title.value,
+            author: form.author.value,
+            pages: parseInt(form.pages.value) || 0,
+            read: form.read.checked
+        });
+        this.shelf.push(addedBook);
+        this.populate();
+        form.reset();
+    }
 
-    return myLibrary.find((elem) => elem.uuid === button.dataset.uuid);
+    remove(event) {
+        const book = this.#get(event, '.book__remove');
+        if (book) book.removeSelf();
+    }
+
+    #get(event, selector = '') {
+        const button = event.target.closest(selector);
+        if (!button) return null;
+
+        return this.shelf.find((elem) => elem.uuid === button.dataset.uuid);
+    }
+
+    read(event) {
+        const book = this.#get(event, '.book__read-switch');
+        if (book) book.switchReadStatus();
+    }
+
+    initBookCards() {
+        this.shelf.forEach((book) => {
+            Object.setPrototypeOf(book, Book.prototype);
+        });
+        this.populate(true);
+    }
 }
 
 function uuidv4() {
@@ -87,9 +92,11 @@ function uuidv4() {
     );
 }
 
+const library = new Library();
+
 addBookButton.addEventListener('click', () => modal.showModal());
 closeModalButton.addEventListener('click', () => modal.close());
-modal.addEventListener('submit', addBookToLibrary);
-document.addEventListener('DOMContentLoaded', initBookCards);
-booksContainer.addEventListener('click', removeBook);
-booksContainer.addEventListener('click', readBook);
+modal.addEventListener('submit', event => library.add(event));
+document.addEventListener('DOMContentLoaded', () => library.initBookCards());
+booksContainer.addEventListener('click', event => library.remove(event));
+booksContainer.addEventListener('click', event => library.read(event));
